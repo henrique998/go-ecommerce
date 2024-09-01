@@ -10,7 +10,6 @@ func (cc *createAccountController) Handle(c fiber.Ctx) error {
 		Name:  "jhon doe",
 		Email: "jhondoe@gmail.com",
 		Pass:  "123456",
-		Phone: "999999999",
 	}
 
 	cc.us.Execute(req)

@@ -49,7 +49,7 @@ func (u *account) Touch() {
 	u.updatedAt = &now
 }
 
-func NewAccount(name, email, pass, phone string, age int8) Account {
+func NewAccount(name, email, pass string) Account {
 	return &account{
 		model: model{
 			id:        generateUUID(),
@@ -62,7 +62,7 @@ func NewAccount(name, email, pass, phone string, age int8) Account {
 	}
 }
 
-func NewExistingAccount(id, name, email, pass, phone string, age int8, createdAt, updatedAt time.Time) Account {
+func NewExistingAccount(id, name, email, pass string, createdAt, updatedAt time.Time) Account {
 	return &account{
 		model: model{
 			id:        id,

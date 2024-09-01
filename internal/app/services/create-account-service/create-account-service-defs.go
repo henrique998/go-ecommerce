@@ -1,4 +1,4 @@
-package createaccountusecase
+package createaccountservice
 
 import (
 	"github.com/henrique998/go-ecommerce/internal/app/repositories"
