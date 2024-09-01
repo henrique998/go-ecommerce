@@ -9,9 +9,9 @@ import (
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/limiter"
-	"github.com/henrique998/go-auth-2/internal/configs/logger"
-	"github.com/henrique998/go-auth-2/internal/infra/database"
-	"github.com/henrique998/go-auth-2/internal/infra/endpoints"
+	"github.com/henrique998/go-ecommerce/internal/configs/logger"
+	"github.com/henrique998/go-ecommerce/internal/infra/database"
+	"github.com/henrique998/go-ecommerce/internal/infra/endpoints"
 	"github.com/joho/godotenv"
 )
 

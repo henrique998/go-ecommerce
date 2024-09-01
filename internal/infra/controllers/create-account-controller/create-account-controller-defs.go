@@ -1,8 +1,8 @@
 package createaccountcontroller
 
 import (
-	"github.com/henrique998/go-auth-2/internal/app/services"
-	"github.com/henrique998/go-auth-2/internal/infra/controllers"
+	"github.com/henrique998/go-ecommerce/internal/app/services"
+	"github.com/henrique998/go-ecommerce/internal/infra/controllers"
 )
 
 type createAccountController struct {

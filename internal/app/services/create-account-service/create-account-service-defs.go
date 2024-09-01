@@ -1,8 +1,8 @@
 package createaccountusecase
 
 import (
-	"github.com/henrique998/go-auth-2/internal/app/repositories"
-	"github.com/henrique998/go-auth-2/internal/app/services"
+	"github.com/henrique998/go-ecommerce/internal/app/repositories"
+	"github.com/henrique998/go-ecommerce/internal/app/services"
 )
 
 type createAccountService struct {

@@ -6,9 +6,7 @@ type Account interface {
 	GetID() string
 	GetName() string
 	GetEmail() string
-	GetPass() *string
-	GetPhone() *string
-	GetAge() int8
+	GetPass() string
 	GetCreatedAt() time.Time
 	GetUpdatedAt() *time.Time
 	Touch()
@@ -18,9 +16,7 @@ type account struct {
 	model
 	name      string
 	email     string
-	pass      *string
-	phone     *string
-	age       int8
+	pass      string
 	updatedAt *time.Time
 }
 
@@ -36,16 +32,8 @@ func (u *account) GetEmail() string {
 	return u.email
 }
 
-func (u *account) GetPass() *string {
+func (u *account) GetPass() string {
 	return u.pass
-}
-
-func (u *account) GetPhone() *string {
-	return u.phone
-}
-
-func (u *account) GetAge() int8 {
-	return u.age
 }
 
 func (u *account) GetCreatedAt() time.Time {
@@ -62,20 +50,6 @@ func (u *account) Touch() {
 }
 
 func NewAccount(name, email, pass, phone string, age int8) Account {
-	var passVal, phoneVal *string
-
-	if pass == "" {
-		passVal = nil
-	} else {
-		passVal = &pass
-	}
-
-	if phone == "" {
-		phoneVal = nil
-	} else {
-		phoneVal = &phone
-	}
-
 	return &account{
 		model: model{
 			id:        generateUUID(),
@@ -83,9 +57,7 @@ func NewAccount(name, email, pass, phone string, age int8) Account {
 		},
 		name:      name,
 		email:     email,
-		pass:      passVal,
-		phone:     phoneVal,
-		age:       age,
+		pass:      pass,
 		updatedAt: nil,
 	}
 }
@@ -98,9 +70,7 @@ func NewExistingAccount(id, name, email, pass, phone string, age int8, createdAt
 		},
 		name:      name,
 		email:     email,
-		pass:      &pass,
-		phone:     &phone,
-		age:       age,
+		pass:      pass,
 		updatedAt: &updatedAt,
 	}
 }

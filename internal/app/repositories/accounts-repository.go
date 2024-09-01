@@ -1,6 +1,6 @@
 package repositories
 
-import "github.com/henrique998/go-auth-2/internal/app/models"
+import "github.com/henrique998/go-ecommerce/internal/app/models"
 
 type AccountsRepository interface {
 	FindById(accountId string) models.Account

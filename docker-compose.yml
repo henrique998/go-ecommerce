@@ -6,7 +6,7 @@ services:
     container_name: database
     restart: always
     ports:
-      - ${HOST_PORT}:${DOCKER_DB_PORT}
+      - ${DOCKER_HOST_PORT}:${DOCKER_DB_PORT}
     environment:
       - POSTGRES_USER=${DOCKER_DB_USER}
       - POSTGRES_PASSWORD=${DOCKER_DB_PASS}

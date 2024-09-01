@@ -1,4 +1,4 @@
-module github.com/henrique998/go-auth-2
+module github.com/henrique998/go-ecommerce
 
 go 1.22.5
 

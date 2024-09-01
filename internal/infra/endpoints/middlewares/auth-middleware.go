@@ -4,8 +4,8 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v3"
-	"github.com/henrique998/go-auth-2/internal/infra/database/repositories"
-	"github.com/henrique998/go-auth-2/internal/infra/utils"
+	"github.com/henrique998/go-ecommerce/internal/infra/database/repositories"
+	"github.com/henrique998/go-ecommerce/internal/infra/utils"
 )
 
 func AuthMiddleware(repo repositories.PGAccountsRepository) fiber.Handler {

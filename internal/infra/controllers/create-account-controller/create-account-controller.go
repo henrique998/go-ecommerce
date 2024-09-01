@@ -2,7 +2,7 @@ package createaccountcontroller
 
 import (
 	"github.com/gofiber/fiber/v3"
-	"github.com/henrique998/go-auth-2/internal/app/requests"
+	"github.com/henrique998/go-ecommerce/internal/app/requests"
 )
 
 func (cc *createAccountController) Handle(c fiber.Ctx) error {

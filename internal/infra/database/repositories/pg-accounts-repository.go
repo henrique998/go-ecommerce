@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/henrique998/go-auth-2/internal/app/models"
+	"github.com/henrique998/go-ecommerce/internal/app/models"
 	"github.com/jackc/pgx/v5"
 )
 
