@@ -8,3 +8,7 @@ import (
 type LoginService interface {
 	Execute(req requests.LoginRequest) (accessToken, refreshToken string, err errors.AppErr)
 }
+
+type RefreshTokenService interface {
+	Execute(refreshTokenStr string) (accessToken, refreshToken string, err errors.AppErr)
+}
