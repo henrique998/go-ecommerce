@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS products(
   price INTEGER NOT NULL,
   stock_quantity INTEGER NOT NULL,
   image_url TEXT NOT NULL,  
+  external_id TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP
 );

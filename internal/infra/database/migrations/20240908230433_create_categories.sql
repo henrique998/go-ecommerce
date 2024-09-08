@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS categories(
 
 -- +goose Down
 -- +goose StatementBegin
-DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS categories;
 -- +goose StatementEnd
