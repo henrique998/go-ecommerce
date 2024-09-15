@@ -6,9 +6,9 @@ import (
 )
 
 type createAccountController struct {
-	us services.CreateAccountService
+	service services.CreateAccountService
 }
 
-func NewCreateAccountController(us services.CreateAccountService) controllers.CreateAccountController {
-	return &createAccountController{us: us}
+func NewCreateAccountController(service services.CreateAccountService) controllers.Controller {
+	return &createAccountController{service: service}
 }

@@ -1,18 +1,26 @@
 package createaccountcontroller
 
 import (
+	"encoding/json"
+
 	"github.com/gofiber/fiber/v3"
 	"github.com/henrique998/go-ecommerce/internal/app/requests"
 )
 
 func (cc *createAccountController) Handle(c fiber.Ctx) error {
-	req := requests.CreateAccountRequest{
-		Name:  "jhon doe",
-		Email: "jhondoe@gmail.com",
-		Pass:  "123456",
+	body := c.Body()
+
+	var req requests.CreateAccountRequest
+
+	jsonErr := json.Unmarshal(body, &req)
+	if jsonErr != nil {
+		return c.Status(fiber.StatusInternalServerError).SendString("internal server error")
 	}
 
-	cc.us.Execute(req)
+	err := cc.service.Execute(req)
+	if err != nil {
+		return c.Status(err.GetStatus()).SendString(err.GetMessage())
+	}
 
-	return nil
+	return c.SendStatus(fiber.StatusCreated)
 }
