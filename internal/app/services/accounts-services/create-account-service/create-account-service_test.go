@@ -17,7 +17,7 @@ func TestCreateAccountService(t *testing.T) {
 	defer ctrl.Finish()
 
 	repo := mocks.NewMockAccountsRepository(ctrl)
-	service := NewCreateAccountService(repo)
+	sut := NewCreateAccountService(repo)
 
 	t.Run("should not be able to create an account with an used email", func(t *testing.T) {
 		req := requests.CreateAccountRequest{
@@ -28,9 +28,9 @@ func TestCreateAccountService(t *testing.T) {
 
 		account := models.NewAccount(req.Name, req.Email, req.Pass)
 
-		repo.EXPECT().FindByEmail(req.Email).Return(account)
+		repo.EXPECT().FindByEmail(req.Email).Return(account, nil)
 
-		err := service.Execute(req)
+		err := sut.Execute(req)
 
 		assert.NotNil(err)
 		assert.Equal("account already exists", err.GetMessage())
@@ -44,10 +44,10 @@ func TestCreateAccountService(t *testing.T) {
 			Pass:  "123456",
 		}
 
-		repo.EXPECT().FindByEmail(req.Email).Return(nil)
+		repo.EXPECT().FindByEmail(req.Email).Return(nil, nil)
 		repo.EXPECT().Create(gomock.Any()).Return(nil)
 
-		err := service.Execute(req)
+		err := sut.Execute(req)
 
 		assert.Nil(err)
 	})

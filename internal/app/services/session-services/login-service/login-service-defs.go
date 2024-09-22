@@ -1,17 +1,13 @@
 package loginservice
 
-import (
-	"github.com/henrique998/go-ecommerce/internal/app/providers"
-	"github.com/henrique998/go-ecommerce/internal/app/repositories"
-	sessionservicesinterfaces "github.com/henrique998/go-ecommerce/internal/app/services/session-services-interfaces"
-)
+import "github.com/henrique998/go-ecommerce/internal/app/contracts"
 
 type loginService struct {
-	repo       repositories.AccountsRepository
-	atProvider providers.AuthTokensProvider
+	repo       contracts.AccountsRepository
+	atProvider contracts.AuthTokensProvider
 }
 
-func NewLoginService(repo repositories.AccountsRepository, atProvider providers.AuthTokensProvider) sessionservicesinterfaces.LoginService {
+func NewLoginService(repo contracts.AccountsRepository, atProvider contracts.AuthTokensProvider) contracts.LoginService {
 	return &loginService{
 		repo:       repo,
 		atProvider: atProvider,

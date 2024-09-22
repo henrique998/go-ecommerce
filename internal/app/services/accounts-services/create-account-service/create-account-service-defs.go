@@ -1,14 +1,11 @@
 package createaccountservice
 
-import (
-	"github.com/henrique998/go-ecommerce/internal/app/repositories"
-	accountservicesinterfaces "github.com/henrique998/go-ecommerce/internal/app/services/account-services-interfaces"
-)
+import "github.com/henrique998/go-ecommerce/internal/app/contracts"
 
 type createAccountService struct {
-	repo repositories.AccountsRepository
+	repo contracts.AccountsRepository
 }
 
-func NewCreateAccountService(repo repositories.AccountsRepository) accountservicesinterfaces.CreateAccountService {
+func NewCreateAccountService(repo contracts.AccountsRepository) contracts.CreateAccountService {
 	return &createAccountService{repo: repo}
 }

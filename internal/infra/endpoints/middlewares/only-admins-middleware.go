@@ -5,12 +5,12 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v3"
-	"github.com/henrique998/go-ecommerce/internal/app/repositories"
+	"github.com/henrique998/go-ecommerce/internal/app/contracts"
 	"github.com/henrique998/go-ecommerce/internal/configs/logger"
 	"github.com/henrique998/go-ecommerce/internal/infra/utils"
 )
 
-func OnlyAdminsMiddleware(repo repositories.AccountRolesRepository) fiber.Handler {
+func OnlyAdminsMiddleware(repo contracts.AccountRolesRepository) fiber.Handler {
 	return func(c fiber.Ctx) error {
 		accessTokenStr := c.Cookies("@app:access_token")
 

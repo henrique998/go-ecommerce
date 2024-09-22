@@ -1,16 +1,16 @@
 package loginservice
 
 import (
-	sessionservicesinterfaces "github.com/henrique998/go-ecommerce/internal/app/services/session-services-interfaces"
+	"github.com/henrique998/go-ecommerce/internal/app/contracts"
 	"github.com/henrique998/go-ecommerce/internal/infra/controllers"
 )
 
 type loginController struct {
-	service sessionservicesinterfaces.LoginService
+	service contracts.LoginService
 }
 
 func NewLoginController(
-	service sessionservicesinterfaces.LoginService,
+	service contracts.LoginService,
 ) controllers.Controller {
 	return &loginController{service: service}
 }
