@@ -11,7 +11,10 @@ import (
 func (uc *createAccountService) Execute(req requests.CreateAccountRequest) errors.AppErr {
 	logger.Info("Init CreateAccount Service")
 
-	account := uc.repo.FindByEmail(req.Email)
+	account, err := uc.repo.FindByEmail(req.Email)
+	if err != nil {
+		return err
+	}
 
 	if account != nil {
 		return errors.NewBadRequestErr("account already exists")
@@ -24,10 +27,9 @@ func (uc *createAccountService) Execute(req requests.CreateAccountRequest) error
 
 	data := models.NewAccount(req.Name, req.Email, pass_hash)
 
-	err := uc.repo.Create(data)
+	err = uc.repo.Create(data)
 	if err != nil {
-		logger.Error("Error trying to create account.", err)
-		return errors.NewInternalServerErr()
+		return err
 	}
 
 	return nil

@@ -12,6 +12,7 @@ package mocks
 import (
 	reflect "reflect"
 
+	errors "github.com/henrique998/go-ecommerce/internal/app/errors"
 	models "github.com/henrique998/go-ecommerce/internal/app/models"
 	gomock "go.uber.org/mock/gomock"
 )
@@ -40,10 +41,10 @@ func (m *MockAccountsRepository) EXPECT() *MockAccountsRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockAccountsRepository) Create(a models.Account) error {
+func (m *MockAccountsRepository) Create(a models.Account) errors.AppErr {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", a)
-	ret0, _ := ret[0].(error)
+	ret0, _ := ret[0].(errors.AppErr)
 	return ret0
 }
 
@@ -54,11 +55,12 @@ func (mr *MockAccountsRepositoryMockRecorder) Create(a any) *gomock.Call {
 }
 
 // FindByEmail mocks base method.
-func (m *MockAccountsRepository) FindByEmail(email string) models.Account {
+func (m *MockAccountsRepository) FindByEmail(email string) (models.Account, errors.AppErr) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindByEmail", email)
 	ret0, _ := ret[0].(models.Account)
-	return ret0
+	ret1, _ := ret[1].(errors.AppErr)
+	return ret0, ret1
 }
 
 // FindByEmail indicates an expected call of FindByEmail.
@@ -68,11 +70,12 @@ func (mr *MockAccountsRepositoryMockRecorder) FindByEmail(email any) *gomock.Cal
 }
 
 // FindById mocks base method.
-func (m *MockAccountsRepository) FindById(accountId string) models.Account {
+func (m *MockAccountsRepository) FindById(accountId string) (models.Account, errors.AppErr) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindById", accountId)
 	ret0, _ := ret[0].(models.Account)
-	return ret0
+	ret1, _ := ret[1].(errors.AppErr)
+	return ret0, ret1
 }
 
 // FindById indicates an expected call of FindById.
@@ -82,10 +85,10 @@ func (mr *MockAccountsRepositoryMockRecorder) FindById(accountId any) *gomock.Ca
 }
 
 // Update mocks base method.
-func (m *MockAccountsRepository) Update(a models.Account) error {
+func (m *MockAccountsRepository) Update(a models.Account) errors.AppErr {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", a)
-	ret0, _ := ret[0].(error)
+	ret0, _ := ret[0].(errors.AppErr)
 	return ret0
 }
 

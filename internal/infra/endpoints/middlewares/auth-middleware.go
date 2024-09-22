@@ -1,14 +1,16 @@
 package middlewares
 
 import (
+	"errors"
 	"os"
 
 	"github.com/gofiber/fiber/v3"
-	"github.com/henrique998/go-ecommerce/internal/infra/database/repositories"
+	"github.com/henrique998/go-ecommerce/internal/app/repositories"
+	"github.com/henrique998/go-ecommerce/internal/configs/logger"
 	"github.com/henrique998/go-ecommerce/internal/infra/utils"
 )
 
-func AuthMiddleware(repo repositories.PGAccountsRepository) fiber.Handler {
+func AuthMiddleware(repo repositories.AccountsRepository) fiber.Handler {
 	return func(c fiber.Ctx) error {
 		accessTokenStr := c.Cookies("@app:access_token")
 
@@ -20,12 +22,19 @@ func AuthMiddleware(repo repositories.PGAccountsRepository) fiber.Handler {
 
 		accountId, err := utils.ParseJWTToken(accessTokenStr, os.Getenv("JWT_SECRET"))
 		if err != nil {
+			logger.Error("Error during parse jwt token", errors.New(err.GetMessage()))
 			return c.JSON(fiber.Map{
-				"error": err.GetMessage(),
+				"error": "Internal server error",
 			})
 		}
 
-		account := repo.FindById(accountId)
+		account, err := repo.FindById(accountId)
+		if err != nil {
+			logger.Error("Error during find account by id in auth middleware", errors.New(err.GetMessage()))
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Internal server error",
+			})
+		}
 
 		if account == nil {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{

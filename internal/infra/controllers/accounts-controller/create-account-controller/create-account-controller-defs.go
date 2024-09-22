@@ -1,14 +1,14 @@
 package createaccountcontroller
 
 import (
-	"github.com/henrique998/go-ecommerce/internal/app/services"
+	accountservicesinterfaces "github.com/henrique998/go-ecommerce/internal/app/services/account-services-interfaces"
 	"github.com/henrique998/go-ecommerce/internal/infra/controllers"
 )
 
 type createAccountController struct {
-	service services.CreateAccountService
+	service accountservicesinterfaces.CreateAccountService
 }
 
-func NewCreateAccountController(service services.CreateAccountService) controllers.Controller {
+func NewCreateAccountController(service accountservicesinterfaces.CreateAccountService) controllers.Controller {
 	return &createAccountController{service: service}
 }

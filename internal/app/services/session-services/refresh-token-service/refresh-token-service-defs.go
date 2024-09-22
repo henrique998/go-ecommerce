@@ -3,7 +3,7 @@ package refreshtokenservice
 import (
 	"github.com/henrique998/go-ecommerce/internal/app/providers"
 	"github.com/henrique998/go-ecommerce/internal/app/repositories"
-	"github.com/henrique998/go-ecommerce/internal/app/services"
+	sessionservicesinterfaces "github.com/henrique998/go-ecommerce/internal/app/services/session-services-interfaces"
 )
 
 type refreshTokenService struct {
@@ -11,7 +11,7 @@ type refreshTokenService struct {
 	atProvider providers.AuthTokensProvider
 }
 
-func NewRefreshTokenService(repo repositories.RefreshTokensRepository, atProvider providers.AuthTokensProvider) services.RefreshTokenService {
+func NewRefreshTokenService(repo repositories.RefreshTokensRepository, atProvider providers.AuthTokensProvider) sessionservicesinterfaces.RefreshTokenService {
 	return &refreshTokenService{
 		repo:       repo,
 		atProvider: atProvider,
