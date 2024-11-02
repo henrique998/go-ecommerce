@@ -27,14 +27,14 @@ func TestLoginService(t *testing.T) {
 			Pass:  "123456",
 		}
 
-		repo.EXPECT().FindByEmail(req.Email).Return(nil)
+		repo.EXPECT().FindByEmail(req.Email).Return(nil, nil)
 
 		accessToken, refreshToken, err := service.Execute(req)
 
 		assert.Empty(accessToken)
 		assert.Empty(refreshToken)
 		assert.NotNil(err)
-		assert.Equal("email or password incorrect", err.GetMessage())
+		assert.Equal("Email or password incorrect", err.GetMessage())
 		assert.Equal(http.StatusBadRequest, err.GetStatus())
 	})
 
@@ -49,14 +49,14 @@ func TestLoginService(t *testing.T) {
 
 		account := models.NewAccount("jhon doe", email, hashedPass)
 
-		repo.EXPECT().FindByEmail(req.Email).Return(account)
+		repo.EXPECT().FindByEmail(req.Email).Return(account, nil)
 
 		accessToken, refreshToken, err := service.Execute(req)
 
 		assert.Empty(accessToken)
 		assert.Empty(refreshToken)
 		assert.NotNil(err)
-		assert.Equal("email or password incorrect", err.GetMessage())
+		assert.Equal("Email or password incorrect", err.GetMessage())
 		assert.Equal(http.StatusBadRequest, err.GetStatus())
 	})
 
@@ -71,7 +71,7 @@ func TestLoginService(t *testing.T) {
 
 		account := models.NewAccount("jhon doe", email, hashedPass)
 
-		repo.EXPECT().FindByEmail(req.Email).Return(account)
+		repo.EXPECT().FindByEmail(req.Email).Return(account, nil)
 		provider.EXPECT().GenerateAuthTokens(account.GetID()).Return("access-token", "refresh-token", nil)
 
 		accessToken, refreshToken, err := service.Execute(req)

@@ -9,6 +9,7 @@ import (
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/limiter"
+	"github.com/gofiber/fiber/v3/middleware/static"
 	"github.com/henrique998/go-ecommerce/internal/configs/logger"
 	"github.com/henrique998/go-ecommerce/internal/infra/database"
 	"github.com/henrique998/go-ecommerce/internal/infra/endpoints"
@@ -30,6 +31,8 @@ func main() {
 	defer conn.Close(context.Background())
 
 	app := fiber.New()
+
+	app.Use("./uploads", static.New("../../internal/infra/uploads"))
 
 	app.Use(limiter.New(limiter.Config{
 		Expiration: 30 * time.Second,

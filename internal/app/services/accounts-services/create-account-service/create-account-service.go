@@ -8,10 +8,10 @@ import (
 	"github.com/henrique998/go-ecommerce/internal/infra/utils"
 )
 
-func (uc *createAccountService) Execute(req requests.CreateAccountRequest) errors.AppErr {
+func (s *createAccountService) Execute(req requests.CreateAccountRequest) errors.AppErr {
 	logger.Info("Init CreateAccount Service")
 
-	account, err := uc.repo.FindByEmail(req.Email)
+	account, err := s.repo.FindByEmail(req.Email)
 	if err != nil {
 		return err
 	}
@@ -27,7 +27,7 @@ func (uc *createAccountService) Execute(req requests.CreateAccountRequest) error
 
 	data := models.NewAccount(req.Name, req.Email, pass_hash)
 
-	err = uc.repo.Create(data)
+	err = s.repo.Create(data)
 	if err != nil {
 		return err
 	}

@@ -7,4 +7,5 @@ import (
 
 func SetupEndpoints(app *fiber.App, db *pgx.Conn) {
 	accountsEndpoints(app, db)
+	productsEndpoints(app, db)
 }

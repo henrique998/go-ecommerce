@@ -4,15 +4,20 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/henrique998/go-ecommerce/internal/app/contracts"
 	"github.com/henrique998/go-ecommerce/internal/app/errors"
 	"github.com/jackc/pgx/v5"
 )
 
-type PGAccountRolesRepository struct {
+type pgAccountRolesRepository struct {
 	Db *pgx.Conn
 }
 
-func (r *PGAccountRolesRepository) FindByAccountId(id string) ([]string, errors.AppErr) {
+func NewPGAccountRolesRepository(db *pgx.Conn) contracts.AccountRolesRepository {
+	return &pgAccountRolesRepository{Db: db}
+}
+
+func (r *pgAccountRolesRepository) FindByAccountId(id string) ([]string, errors.AppErr) {
 	query := `SELECT name FROM account_roles WHERE account_id = $1`
 
 	rows, err := r.Db.Query(context.Background(), query, id)

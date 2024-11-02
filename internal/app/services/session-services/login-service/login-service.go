@@ -9,10 +9,10 @@ import (
 	"github.com/henrique998/go-ecommerce/internal/infra/utils"
 )
 
-func (uc *loginService) Execute(req requests.LoginRequest) (accessToken, refreshToken string, err appErr.AppErr) {
+func (s *loginService) Execute(req requests.LoginRequest) (accessToken, refreshToken string, err appErr.AppErr) {
 	logger.Info("Init Login Service")
 
-	account, err := uc.repo.FindByEmail(req.Email)
+	account, err := s.repo.FindByEmail(req.Email)
 	if err != nil {
 		return "", "", err
 	}
@@ -26,7 +26,7 @@ func (uc *loginService) Execute(req requests.LoginRequest) (accessToken, refresh
 		return "", "", appErr.NewBadRequestErr("Email or password incorrect")
 	}
 
-	accessToken, refreshToken, tokenErr := uc.atProvider.GenerateAuthTokens(account.GetID())
+	accessToken, refreshToken, tokenErr := s.atProvider.GenerateAuthTokens(account.GetID())
 	if tokenErr != nil {
 		logger.Error("Error during tokens generation", errors.New(tokenErr.GetMessage()))
 		return "", "", appErr.NewInternalServerErr()

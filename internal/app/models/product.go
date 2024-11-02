@@ -14,6 +14,8 @@ type Product interface {
 	SetStock(qty int)
 	GetImageUrl() string
 	SetImageUrl(url string)
+	GetExternalID() string
+	SetExternalID(externalId string)
 	GetCreatedAt() time.Time
 	GetUpdatedAt() *time.Time
 	Touch()
@@ -26,6 +28,7 @@ type product struct {
 	price         int64
 	stockQuantity int
 	imageUrl      string
+	externalID    string
 	updatedAt     *time.Time
 }
 
@@ -73,6 +76,14 @@ func (m *product) SetImageUrl(url string) {
 	m.imageUrl = url
 }
 
+func (m *product) GetExternalID() string {
+	return m.externalID
+}
+
+func (m *product) SetExternalID(externalId string) {
+	m.externalID = externalId
+}
+
 func (m *product) GetCreatedAt() time.Time {
 	return m.createdAt
 }
@@ -86,7 +97,7 @@ func (m *product) Touch() {
 	m.updatedAt = &now
 }
 
-func NewProduct(name, description string, price int64, stockQty int, imageUrl string) Product {
+func NewProduct(name string, description string, price int64, stockQty int, imageUrl string) Product {
 	return &product{
 		model: model{
 			id:        generateUUID(),
@@ -97,11 +108,12 @@ func NewProduct(name, description string, price int64, stockQty int, imageUrl st
 		price:         price,
 		stockQuantity: stockQty,
 		imageUrl:      imageUrl,
+		externalID:    "",
 		updatedAt:     nil,
 	}
 }
 
-func NewExistingProduct(id, name, description string, price int64, stockQty int, imageUrl string, createdAt time.Time, updatedAt *time.Time) Product {
+func NewExistingProduct(id, name string, description string, price int64, stockQty int, imageUrl string, externalID string, createdAt time.Time, updatedAt *time.Time) Product {
 	return &product{
 		model: model{
 			id:        id,
@@ -112,6 +124,7 @@ func NewExistingProduct(id, name, description string, price int64, stockQty int,
 		price:         price,
 		stockQuantity: stockQty,
 		imageUrl:      imageUrl,
+		externalID:    externalID,
 		updatedAt:     updatedAt,
 	}
 }
