@@ -6,5 +6,6 @@ import (
 )
 
 type ProductsRepository interface {
+	FindAll() ([]models.Product, error)
 	Create(product models.Product) errors.AppErr
 }

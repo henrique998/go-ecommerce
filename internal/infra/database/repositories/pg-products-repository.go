@@ -3,6 +3,7 @@ package repositories
 import (
 	"context"
 	"net/http"
+	"time"
 
 	"github.com/henrique998/go-ecommerce/internal/app/contracts"
 	"github.com/henrique998/go-ecommerce/internal/app/errors"
@@ -16,6 +17,37 @@ type pgProductsRepository struct {
 
 func NewPGProductsRepo(db *pgx.Conn) contracts.ProductsRepository {
 	return &pgProductsRepository{db: db}
+}
+
+func (r *pgProductsRepository) FindAll() ([]models.Product, error) {
+	query := `SELECT id, name, description, price, stock_quantity, image_url, external_id, created_at, updated_at from products`
+
+	rows, err := r.db.Query(context.Background(), query)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var id, name, description, imageUrl, externalID string
+	var price int64
+	var stockQty int
+	var createdAt time.Time
+	var updatedAt *time.Time
+
+	var products []models.Product
+
+	for rows.Next() {
+		err := rows.Scan(&id, &name, &description, &price, &stockQty, &imageUrl, &externalID, &createdAt, &updatedAt)
+		if err != nil {
+			return nil, err
+		}
+
+		p := models.NewExistingProduct(id, name, description, price, stockQty, imageUrl, externalID, createdAt, updatedAt)
+		products = append(products, p)
+	}
+
+	return products, nil
 }
 
 func (r *pgProductsRepository) Create(product models.Product) errors.AppErr {
