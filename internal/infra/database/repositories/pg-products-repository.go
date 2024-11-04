@@ -19,10 +19,11 @@ func NewPGProductsRepo(db *pgx.Conn) contracts.ProductsRepository {
 	return &pgProductsRepository{db: db}
 }
 
-func (r *pgProductsRepository) FindAll() ([]models.Product, error) {
-	query := `SELECT id, name, description, price, stock_quantity, image_url, external_id, created_at, updated_at from products`
+func (r *pgProductsRepository) FindMany(page, size int) ([]models.Product, error) {
+	offset := (page - 1) * size
+	query := `SELECT id, name, description, price, stock_quantity, image_url, external_id, created_at, updated_at from products LIMIT $1 OFFSET $2`
 
-	rows, err := r.db.Query(context.Background(), query)
+	rows, err := r.db.Query(context.Background(), query, size, offset)
 	if err != nil {
 		return nil, err
 	}
